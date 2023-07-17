@@ -21,6 +21,10 @@ board = Board()
 gameover = False
 while not gameover:
     if user1_turn:
+        if board.positions['왕1'][1]%10==4:
+            print('user1 win!')
+            break
+
         try:
             command = input("user1 turn: (q: quit) ")
             if command == 'q' or command=='ㅂ': break
@@ -31,16 +35,24 @@ while not gameover:
         except ValueError as e:
             print('다시 입력해주세요')
             print(e)
+            continue
+
+        print(board)
+        success = user1.move_piece(piece, position, board)
+        if not success:
+            print('다시 입력해주세요2')
+            continue
         
         print(board)
-        user1.move_piece(piece, position, board)
-        print(board)
-        if board.positions['왕2']==0:
+        if board.positions['왕2'][1]==0:
             print('user1 win!')
             gameover = True
         user1_turn=False
 
     else:
+        if board.positions['왕2'][1]%10==1:
+            print('user2 win!')
+            break
         try:
             command = input("user2 turn: (q: quit) ")
             if command == 'q' or command=='ㅂ': break
@@ -51,11 +63,16 @@ while not gameover:
         except ValueError as e:
             print('다시 입력해주세요')
             print(e)
+            continue
+
+        print(board)
+        success = user2.move_piece(piece, position, board)
+        if not success:
+            print('다시 입력해주세요2')
+            continue
         
         print(board)
-        user2.move_piece(piece, position, board)
-        print(board)
-        if board.positions['왕1']==5:
+        if board.positions['왕1'][1]==5:
             print('user2 win!')
             gameover = True
             
